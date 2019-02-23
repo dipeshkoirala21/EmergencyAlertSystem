@@ -2,6 +2,7 @@ package dipesh.com.emergencyalertsystem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,14 +25,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mFeatureList = mFeatureList;
     }
 
+    @NonNull
     @Override
-    public FeatureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FeatureViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
         return new FeatureViewHolder(mView);
     }
 
     @Override
-    public void onBindViewHolder(final FeatureViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FeatureViewHolder holder, int position) {
         holder.mImage.setImageResource(mFeatureList.get(position).getFeatureImage());
         holder.mTitle.setText(mFeatureList.get(position).getFeatureName());
         holder.mCardView.setOnClickListener(new View.OnClickListener() {

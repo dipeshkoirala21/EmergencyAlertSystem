@@ -2,8 +2,6 @@
     <string name="app_name">Emergency Alert System</string>
 
     <string name="title_section1">Emergency Alert System</string>
-    <string name="title_section2">SETTINGS</string>
-    <string name="title_section3">FEEDBACK</string>
 
     <string name="sendMessage">Send Alert Message</string>
 
@@ -29,5 +27,7 @@
     <string name="title_activity_hotkey_navigation">Hotkey Service</string>
     <string name="nav_header_title">Emergency Alert System</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="security_on_off">Security On/Off: </string>
+    <string name="send_sms">Send SMS</string>
 
 </resources>
