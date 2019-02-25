@@ -41,6 +41,9 @@
         android:background="@android:color/transparent"
         android:onClick="sendMessage"
         android:src="@drawable/alert" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/content_frame"/>
 
 
 
