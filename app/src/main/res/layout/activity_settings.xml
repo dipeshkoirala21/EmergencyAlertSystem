@@ -3,77 +3,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/listView"
     tools:context=".SettingsActivity">
 
-    <TextView
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Emergency message"
+        app:titleTextColor="@android:color/white"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
         android:id="@+id/textView"
-        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="105dp"
+        android:text="Emergency message"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:id="@+id/emergencyMessageTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/emergencyMessageTextField"
         android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="3dp"
         android:text="I&apos;m in emergency" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Primary Contact"
-        android:id="@+id/textView2"
-        android:layout_marginTop="35dp"
         android:layout_below="@+id/emergencyMessageTextField"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="22dp"
+        android:text="Primary Contact"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:id="@+id/primaryContactTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/primaryContactTextField"
         android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="2dp"
+        android:ems="10"
+        android:inputType="phone" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Secondary Contact"
-        android:id="@+id/textView3"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/primaryContactTextField"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/primaryContactTextField" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="21dp"
+        android:text="Secondary Contact"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:id="@+id/secondaryContactTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/secondaryContactTextField"
         android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="phone" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Settings"
         android:id="@+id/button"
-        android:onClick="settingDetails"
-        android:layout_alignParentBottom="true"
+        android:layout_width="308dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="49dp"
+        android:layout_marginLeft="49dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginRight="53dp"
+        android:layout_marginBottom="41dp"
+        android:onClick="settingDetails"
+        android:text="Save Settings" />
 </RelativeLayout>

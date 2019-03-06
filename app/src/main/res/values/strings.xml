@@ -29,5 +29,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="security_on_off">Security On/Off: </string>
     <string name="send_sms">Send SMS</string>
+    <string name="menu">menu</string>
 
 </resources>

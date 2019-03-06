@@ -2,8 +2,9 @@ package dipesh.com.emergencyalertsystem;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,28 +13,44 @@ import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
     private EditText message, primaryContact, secondaryContact;
-    public static final String MyPreferences = "AbhayaPreference";
+    public static final String MyPreferences = "emergencypreference";
     public static final String Messages = "MessageKey";
     public static final String pContacts = "pContactKey";
 
     public static final String sContacts = "sContactKey";
 
     public static final String securityOnOffs = "securityKey";
+
     SharedPreferences.Editor editor;
 
     SharedPreferences sharedPreferences;
 
 
-    public SettingsActivity (Context context){
+
+    //constructor of the class
+
+    public SettingsActivity(){
+
+    }
+
+    public SettingsActivity ( Context context){
         sharedPreferences = context.getSharedPreferences(MyPreferences, 0);
         editor=sharedPreferences.edit();
         editor.apply();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        //setting up a toolbar
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         message = findViewById(R.id.emergencyMessageTextField);
         primaryContact = findViewById(R.id.primaryContactTextField);
         secondaryContact = findViewById(R.id.secondaryContactTextField);
@@ -55,6 +72,11 @@ public class SettingsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -62,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
 
         //noinspection SimplifiableIfStatement
 
@@ -92,6 +115,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    public void setSecurity(){
 
+    }
 
 }

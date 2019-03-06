@@ -5,7 +5,7 @@
         android:id="@+id/miCompose"
         android:icon="@drawable/menu_vertical"
         app:showAsAction="ifRoom"
-        android:title="menu">
+        android:title="@string/menu">
     </item>
 
 </menu>
