@@ -45,7 +45,7 @@ public class HotkeyNavigation extends AppCompatActivity
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
     LocationManager locationManager ;
     boolean GpsStatus ;
-   // ImageButton imageButton;
+    ImageButton imageButton;
     //for Gps co-ordinates
     private TextView locationTv;
     private GoogleApiClient googleApiClient;
@@ -68,7 +68,7 @@ public class HotkeyNavigation extends AppCompatActivity
         setContentView(R.layout.activity_hotkey_navigation);
         locationTv = findViewById(R.id.location);
         Toolbar toolbar = findViewById(R.id.toolbar);
-      //  imageButton = findViewById(R.id.sendSMS);
+        imageButton = findViewById(R.id.sendSMS);
         Bundle mBundle = getIntent().getExtras();
         if (mBundle != null) {
             toolbar.setTitle(mBundle.getString("Title"));
@@ -96,6 +96,7 @@ public class HotkeyNavigation extends AppCompatActivity
         //  permissions  to request location of the users
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        permissions.add(Manifest.permission.SEND_SMS);
 
         permissionsToRequest = permissionsToRequest(permissions);
 
@@ -115,15 +116,15 @@ public class HotkeyNavigation extends AppCompatActivity
                 addOnConnectionFailedListener(this).build();
 
         //image button onclick
-//        imageButton.setOnClickListener(new View.OnClickListener()   {
-//            public void onClick(View v)  {
-//                try {
-//                    sendMessage();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+        imageButton.setOnClickListener(new View.OnClickListener()   {
+            public void onClick(View view)  {
+                try {
+                    sendMessage(view);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private ArrayList<String> permissionsToRequest(ArrayList<String> wantedPermissions) {
@@ -359,7 +360,7 @@ public class HotkeyNavigation extends AppCompatActivity
     }
 
 
-    public void sendMessage( View view) {
+    public void sendMessage(View view) {
 
         Context context = getApplicationContext();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
