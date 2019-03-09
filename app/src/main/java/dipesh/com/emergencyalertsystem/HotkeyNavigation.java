@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,12 +43,13 @@ import java.util.ArrayList;
 public class HotkeyNavigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
-
+    LocationManager locationManager ;
+    boolean GpsStatus ;
+   // ImageButton imageButton;
     //for Gps co-ordinates
     private TextView locationTv;
     private GoogleApiClient googleApiClient;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private LocationRequest locationRequest;
     private static final long UPDATE_INTERVAL = 5000, FASTEST_INTERVAL = 5000; // = 5 seconds
     // lists for permissions
     private ArrayList<String> permissionsToRequest;
@@ -65,6 +68,7 @@ public class HotkeyNavigation extends AppCompatActivity
         setContentView(R.layout.activity_hotkey_navigation);
         locationTv = findViewById(R.id.location);
         Toolbar toolbar = findViewById(R.id.toolbar);
+      //  imageButton = findViewById(R.id.sendSMS);
         Bundle mBundle = getIntent().getExtras();
         if (mBundle != null) {
             toolbar.setTitle(mBundle.getString("Title"));
@@ -100,6 +104,8 @@ public class HotkeyNavigation extends AppCompatActivity
                 requestPermissions(permissionsToRequest.toArray(
                         new String[0]), ALL_PERMISSIONS_RESULT);
             }
+
+
         }
 
         // building google api client
@@ -107,6 +113,17 @@ public class HotkeyNavigation extends AppCompatActivity
                 addApi(LocationServices.API).
                 addConnectionCallbacks(this).
                 addOnConnectionFailedListener(this).build();
+
+        //image button onclick
+//        imageButton.setOnClickListener(new View.OnClickListener()   {
+//            public void onClick(View v)  {
+//                try {
+//                    sendMessage();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
     }
 
     private ArrayList<String> permissionsToRequest(ArrayList<String> wantedPermissions) {
@@ -195,7 +212,7 @@ public class HotkeyNavigation extends AppCompatActivity
     }
 
     private void startLocationUpdates() {
-        locationRequest = new LocationRequest();
+        LocationRequest locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(UPDATE_INTERVAL);
         locationRequest.setFastestInterval(FASTEST_INTERVAL);
@@ -333,9 +350,17 @@ public class HotkeyNavigation extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    public void CheckGpsStatus(){
+
+        locationManager = (LocationManager)getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+
+        assert locationManager != null;
+        GpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
 
 
-    public void sendMessage(View view) {
+    public void sendMessage( View view) {
+
         Context context = getApplicationContext();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -361,19 +386,21 @@ public class HotkeyNavigation extends AppCompatActivity
             if (sharedPreferences.contains(settingsActivity.pContacts) || sharedPreferences.contains(settingsActivity.sContacts)) {
                 if (sharedPreferences.contains(settingsActivity.Messages)) {
                     if (sharedPreferences.contains(settingsActivity.pContacts)) {
-                        String urlWithPrefix = "";
-                        String stringLatitude = String.valueOf(location.getLatitude());
-                        String stringLongitude = String.valueOf(location.getLongitude());
-                        urlWithPrefix = " and I am at https://www.google.com.np/maps/@" + stringLatitude + "," + stringLongitude + ",17z";
+                        String urlWithPrefix="";
+                        CheckGpsStatus() ;
+//                        String stringLatitude = String.valueOf(location.getLatitude());
+//                        String stringLongitude = String.valueOf(location.getLongitude());
+//                        urlWithPrefix = " and I am at https://www.google.com.np/maps/@" + stringLatitude + "," + stringLongitude + ",17z";
 
-                        // check condition here and enable GPS
-//                        if(onConnected().get) {
-//                            String stringLatitude = String.valueOf(location.getLatitude());
-//                            String stringLongitude = String.valueOf(location.getLongitude());
-//                            urlWithPrefix = " and I am at https://www.google.com.np/maps/@" + stringLatitude + "," + stringLongitude + ",17z";
-//                        }else{
-//                            Toast.makeText(context,"Your GPS is OFF", Toast.LENGTH_LONG).show();
-//                        }
+                       //  check condition here and enable GPS
+                        if(GpsStatus) {
+                            String stringLatitude = String.valueOf(location.getLatitude());
+                            String stringLongitude = String.valueOf(location.getLongitude());
+                            urlWithPrefix = " and I am at https://www.google.com.np/maps/@" + stringLatitude + "," + stringLongitude + ",17z";
+
+                        }else{
+                            Toast.makeText(context,"Your GPS is OFF", Toast.LENGTH_LONG).show();
+                        }
 
                         if (pContact != null && !pContact.isEmpty()) {
                             message = message + urlWithPrefix;
