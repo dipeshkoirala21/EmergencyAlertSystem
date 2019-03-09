@@ -20,8 +20,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -37,7 +39,7 @@ import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 
 public class HotkeyNavigation extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,CompoundButton.OnCheckedChangeListener,GoogleApiClient.ConnectionCallbacks,
+        implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     //for Gps co-ordinates
@@ -77,11 +79,11 @@ public class HotkeyNavigation extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       //switch code check
+        //switch code check
         Switch securityOnOff = findViewById(R.id.security_on_off);
         boolean security = settingsActivity.checkSecurity();
         String securityState = (security) ? "ON" : "OFF";
-        Toast.makeText(this,"Security is " + securityState, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Security is " + securityState, Toast.LENGTH_LONG).show();
         securityOnOff.setChecked(security);
         //Toast.makeText(this, "Security Current Position " + (securityOnOff.isChecked() ? "On" : "Off"),Toast.LENGTH_SHORT).show();
         securityOnOff.setOnCheckedChangeListener(this);
@@ -100,7 +102,7 @@ public class HotkeyNavigation extends AppCompatActivity
             }
         }
 
-        // we build google api client
+        // building google api client
         googleApiClient = new GoogleApiClient.Builder(this).
                 addApi(LocationServices.API).
                 addConnectionCallbacks(this).
@@ -126,6 +128,7 @@ public class HotkeyNavigation extends AppCompatActivity
 
         return true;
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -149,7 +152,7 @@ public class HotkeyNavigation extends AppCompatActivity
         super.onPause();
 
         // stop location updates
-        if (googleApiClient != null  &&  googleApiClient.isConnected()) {
+        if (googleApiClient != null && googleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
             googleApiClient.disconnect();
         }
@@ -171,11 +174,12 @@ public class HotkeyNavigation extends AppCompatActivity
 
         return true;
     }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                &&  ActivityCompat.checkSelfPermission(this,
+                && ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -198,7 +202,7 @@ public class HotkeyNavigation extends AppCompatActivity
 
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                &&  ActivityCompat.checkSelfPermission(this,
+                && ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, "You need to enable permissions to display location !", Toast.LENGTH_SHORT).show();
         }
@@ -225,7 +229,7 @@ public class HotkeyNavigation extends AppCompatActivity
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch(requestCode) {
+        switch (requestCode) {
             case ALL_PERMISSIONS_RESULT:
                 for (String perm : permissionsToRequest) {
                     if (!hasPermission(perm)) {
@@ -266,7 +270,7 @@ public class HotkeyNavigation extends AppCompatActivity
         Context context = getApplicationContext();
         sharedPreferences = context.getSharedPreferences(SettingsActivity.MyPreferences, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        if(isChecked){
+        if (isChecked) {
             editor.putBoolean(SettingsActivity.securityOnOffs, true);
             Toast.makeText(this, "Security is ON", Toast.LENGTH_LONG).show();
         } else {
@@ -331,71 +335,84 @@ public class HotkeyNavigation extends AppCompatActivity
     }
 
 
+    public void sendMessage(View view) {
+        Context context = getApplicationContext();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        //GPSTracker gpsTracker = new GPSTracker(context);
+        //Boolean checkInternet = checkInternetConnection(context);
+        sharedPreferences = context.getSharedPreferences(settingsActivity.MyPreferences,
+                0);
+        SmsManager smsManager = SmsManager.getDefault();
+        boolean security = sharedPreferences.getBoolean(settingsActivity.securityOnOffs, false);
+        String message = sharedPreferences.getString(settingsActivity.Messages, null);
+        String pContact = sharedPreferences.getString(settingsActivity.pContacts, null);
+        String sContact = sharedPreferences.getString(settingsActivity.sContacts, null);
+        if(security) {
+            if (sharedPreferences.contains(settingsActivity.pContacts) || sharedPreferences.contains(settingsActivity.sContacts)) {
+                if (sharedPreferences.contains(settingsActivity.Messages)) {
+                    if (sharedPreferences.contains(settingsActivity.pContacts)) {
+                        String urlWithPrefix = "";
+                        String stringLatitude = String.valueOf(location.getLatitude());
+                        String stringLongitude = String.valueOf(location.getLongitude());
+                        urlWithPrefix = " and I am at https://www.google.com.np/maps/@" + stringLatitude + "," + stringLongitude + ",17z";
 
-
-
-//    public void sendMessage(View view) {
-//        Context context = getApplicationContext();
-//        GPSTracker gpsTracker = new GPSTracker(context);
-//        //Boolean checkInternet = checkInternetConnection(context);
-//        sharedPreferences = context.getSharedPreferences(settingsActivity.MyPreferences,
-//                0);
-//        SmsManager smsManager = SmsManager.getDefault();
-//        boolean security = sharedPreferences.getBoolean(settingsActivity.securityOnOffs, false);
-//        String message = sharedPreferences.getString(settingsActivity.Messages, null);
-//        String pContact = sharedPreferences.getString(settingsActivity.pContacts, null);
-//        String sContact = sharedPreferences.getString(settingsActivity.sContacts, null);
-//        if(security) {
-//            if (sharedPreferences.contains(settingsActivity.pContacts) || sharedPreferences.contains(settingsActivity.sContacts)) {
-//                if (sharedPreferences.contains(settingsActivity.Messages)) {
-//                    if (sharedPreferences.contains(settingsActivity.pContacts)) {
-//                        String urlWithPrefix = "";
-//                        if(gpsTracker.isGPSEnabled) {
-//                            String stringLatitude = String.valueOf(gpsTracker.latitude);
-//                            String stringLongitude = String.valueOf(gpsTracker.longitude);
-//                            urlWithPrefix = " and I am at https://www.google.co.in/maps/@" + stringLatitude + "," + stringLongitude + ",19z";
+                        // check condition here and enable GPS
+//                        if(onConnected().get) {
+//                            String stringLatitude = String.valueOf(location.getLatitude());
+//                            String stringLongitude = String.valueOf(location.getLongitude());
+//                            urlWithPrefix = " and I am at https://www.google.com.np/maps/@" + stringLatitude + "," + stringLongitude + ",17z";
 //                        }else{
 //                            Toast.makeText(context,"Your GPS is OFF", Toast.LENGTH_LONG).show();
 //                        }
-//
-//                        if (pContact != null && !pContact.isEmpty()) {
-//                            message = message + urlWithPrefix;
-//                            smsManager.sendTextMessage(pContact, null, message, null, null);
-//                            Toast.makeText(context, "Message sent : " + pContact, Toast.LENGTH_LONG).show();
-//
-//                            if(sContact != null && !sContact.isEmpty()){
-//                                String url = "";
-//                                message = message + url;
-//                                smsManager.sendTextMessage(sContact, null, message, null, null);
-//                                Toast.makeText(context, "Message sent : " + sContact, Toast.LENGTH_LONG).show();
-//                            }
-//
-//                        } else {
-//                            Toast.makeText(context,
-//                                    "Please setup Primary Contact ",
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//
-//                    } else {
-//                        Toast.makeText(context,
-//                                "Please setup Primary Contact",
-//                                Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-//                    Toast.makeText(context,
-//                            "You haven't setup any Emergency Message",
-//                            Toast.LENGTH_LONG).show();
-//                }
-//            } else {
-//                Toast.makeText(context,
-//                        "Please Configure contact details ",
-//                        Toast.LENGTH_LONG).show();
-//
-//            }
-//        } else {
-//            Toast.makeText(context,
-//                    "Your Security is OFF ",
-//                    Toast.LENGTH_LONG).show();
-//        }
-//    }
+
+                        if (pContact != null && !pContact.isEmpty()) {
+                            message = message + urlWithPrefix;
+                            smsManager.sendTextMessage(pContact, null, message, null, null);
+                            Toast.makeText(context, "Message sent : " + pContact, Toast.LENGTH_LONG).show();
+
+                            if(sContact != null && !sContact.isEmpty()){
+                                String url = "";
+                                message = message + url;
+                                smsManager.sendTextMessage(sContact, null, message, null, null);
+                                Toast.makeText(context, "Message sent : " + sContact, Toast.LENGTH_LONG).show();
+                            }
+
+                        } else {
+                            Toast.makeText(context,
+                                    "Please setup Primary Contact ",
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                    } else {
+                        Toast.makeText(context,
+                                "Please setup Primary Contact",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(context,
+                            "You haven't setup any Emergency Message",
+                            Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(context,
+                        "Please Configure contact details ",
+                        Toast.LENGTH_LONG).show();
+
+            }
+        } else {
+            Toast.makeText(context,
+                    "Your Security is OFF ",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
 }
