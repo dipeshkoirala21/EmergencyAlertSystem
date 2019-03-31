@@ -1,4 +1,4 @@
-package dipesh.com.emergencyalertsystem;
+package dipesh.com.emergencyalertsystem.hk;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import dipesh.com.emergencyalertsystem.R;
 
 public class SettingsActivity extends AppCompatActivity {
     private EditText message, primaryContact, secondaryContact;

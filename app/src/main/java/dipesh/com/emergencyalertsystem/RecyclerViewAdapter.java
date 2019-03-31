@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import dipesh.com.emergencyalertsystem.bor.LoginActivity;
+import dipesh.com.emergencyalertsystem.hk.HotkeyNavigation;
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.FeatureViewHolder> {
@@ -39,10 +41,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mIntent = new Intent(mContext, HotkeyNavigation.class);
-                mIntent.putExtra("Title", mFeatureList.get(holder.getAdapterPosition()).getFeatureName());
-                mIntent.putExtra("Image", mFeatureList.get(holder.getAdapterPosition()).getFeatureImage());
-                mContext.startActivity(mIntent);
+
+                int id = holder.getAdapterPosition();
+                if (id == 0) {
+                    Intent mIntent = new Intent(mContext, HotkeyNavigation.class);
+                    mIntent.putExtra("Title", mFeatureList.get(holder.getAdapterPosition()).getFeatureName());
+                    mIntent.putExtra("Image", mFeatureList.get(holder.getAdapterPosition()).getFeatureImage());
+                    mContext.startActivity(mIntent);
+                } else if (id == 1) {
+                    Intent mIntent = new Intent(mContext, LoginActivity.class);
+                    mIntent.putExtra("Title", mFeatureList.get(holder.getAdapterPosition()).getFeatureName());
+                    mIntent.putExtra("Image", mFeatureList.get(holder.getAdapterPosition()).getFeatureImage());
+                    mContext.startActivity(mIntent);
+                } else if (id == 2) {
+                    Intent mIntent = new Intent(mContext, LoginActivity.class);
+                    mIntent.putExtra("Title", mFeatureList.get(holder.getAdapterPosition()).getFeatureName());
+                    mIntent.putExtra("Image", mFeatureList.get(holder.getAdapterPosition()).getFeatureImage());
+                    mContext.startActivity(mIntent);
+                } else if (id == 3) {
+                    Intent mIntent = new Intent(mContext, LoginActivity.class);
+                    mIntent.putExtra("Title", mFeatureList.get(holder.getAdapterPosition()).getFeatureName());
+                    mIntent.putExtra("Image", mFeatureList.get(holder.getAdapterPosition()).getFeatureImage());
+                    mContext.startActivity(mIntent);
+                } else if (id == 4) {
+                    Intent mIntent = new Intent(mContext, LoginActivity.class);
+                    mIntent.putExtra("Title", mFeatureList.get(holder.getAdapterPosition()).getFeatureName());
+                    mIntent.putExtra("Image", mFeatureList.get(holder.getAdapterPosition()).getFeatureImage());
+                    mContext.startActivity(mIntent);
+                } else if (id == 5) {
+                    Intent mIntent = new Intent(mContext, LoginActivity.class);
+                    mIntent.putExtra("Title", mFeatureList.get(holder.getAdapterPosition()).getFeatureName());
+                    mIntent.putExtra("Image", mFeatureList.get(holder.getAdapterPosition()).getFeatureImage());
+                    mContext.startActivity(mIntent);
+                }
             }
         });
     }

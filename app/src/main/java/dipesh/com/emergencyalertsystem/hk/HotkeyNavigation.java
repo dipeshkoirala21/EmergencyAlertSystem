@@ -1,4 +1,4 @@
-package dipesh.com.emergencyalertsystem;
+package dipesh.com.emergencyalertsystem.hk;
 
 
 import android.Manifest;
@@ -40,6 +40,8 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 
+import dipesh.com.emergencyalertsystem.R;
+
 public class HotkeyNavigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -57,7 +59,7 @@ public class HotkeyNavigation extends AppCompatActivity
     private ArrayList<String> permissions = new ArrayList<>();
     // integer for permissions results request
     private static final int ALL_PERMISSIONS_RESULT = 1011;
-    //-----------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     SharedPreferences sharedPreferences;
     SettingsActivity settingsActivity;
@@ -397,7 +399,7 @@ public class HotkeyNavigation extends AppCompatActivity
                         if(GpsStatus) {
                             String stringLatitude = String.valueOf(location.getLatitude());
                             String stringLongitude = String.valueOf(location.getLongitude());
-                            urlWithPrefix = " and I am at https://www.google.com.np/maps/@" + stringLatitude + "," + stringLongitude + ",17z";
+                            urlWithPrefix = " and I am at https://www.google.com/maps/search/?api=1&query=" + stringLatitude + "," + stringLongitude ;
 
                         }else{
                             Toast.makeText(context,"Your GPS is OFF", Toast.LENGTH_LONG).show();

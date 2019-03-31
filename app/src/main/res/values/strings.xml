@@ -30,5 +30,14 @@
     <string name="security_on_off">Security On/Off: </string>
     <string name="send_sms">Send SMS</string>
     <string name="menu">menu</string>
+    <string name="title_activity_setup_hotkey">SetupHotkey</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="don_t_have_an_account">Don\'t Have an Account?</string>
+    <string name="click_to_register">Click to Register</string>
+    <string name="email">EMAIL</string>
+    <string name="password">PASSWORD</string>
+    <string name="already_have_an_account">Already Have an Account?</string>
+    <string name="login_here">Login Here</string>
+    <string name="title_activity_bor_map">Map</string>
 
 </resources>
