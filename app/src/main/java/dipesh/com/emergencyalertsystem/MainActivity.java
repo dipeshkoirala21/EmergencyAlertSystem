@@ -17,9 +17,15 @@ public class MainActivity extends AppCompatActivity {
     List<FeatureData> mFeatureList;
     FeatureData mFeatureData;
 
+    private static MainActivity INSTANCE;
+    public static MainActivity getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        INSTANCE=this;
         setContentView(R.layout.activity_main);
 
         //setting up a toolbar

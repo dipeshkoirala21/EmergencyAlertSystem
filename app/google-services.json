@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "599407155983",
+    "firebase_url": "https://bloodonrequest.firebaseio.com",
+    "project_id": "bloodonrequest",
+    "storage_bucket": "bloodonrequest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599407155983:android:0eecd9977caf666b",
+        "android_client_info": {
+          "package_name": "dipesh.com.emergencyalertsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599407155983-p597hvqseg2hnp6j2hpuj9stmvt8mquo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dipesh.com.emergencyalertsystem",
+            "certificate_hash": "d706e0f9b946e731f43bce0b9e2598aa7b718bc0"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4gn8Wt0ktFKfSN3q4Dp1o5fuq7ZhOZlY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599407155983-kt6ipe9be56dq7r38uluub1rdls3ftm5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

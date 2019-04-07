@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="dipesh.com.emergencyalertsystem">
-
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -23,6 +26,32 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".vr.ViolenceReport"
+            android:label="Violence Report"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".safetytips.SafetyTips"
+            android:label="Safety Tips" />
+        <activity
+            android:name=".feedback.FeedbackActivity"
+            android:label="Feedback" />
+        <activity android:name=".bor.ProfileActivity" />
+        <activity
+            android:name=".bor.UserLoginActivity"
+            android:label="@string/title_activity_user_login" />
+        <activity
+            android:name=".bor.MapsActivity"/>
+        <activity
+            android:name=".bor.UserDetailActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bor.MapsActivity" />
+        </activity>
+
+        <activity
+            android:name=".emrCall.EmergencyCall"
+            android:label="Emergency Call" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -36,11 +65,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".bor.BorMap"
-            android:label="@string/title_activity_bor_map"> </activity>
-        <activity android:name=".bor.SignupActivity" />
-        <activity android:name=".bor.LoginActivity" />
         <activity android:name=".hk.SetupHotkey" />
         <activity android:name=".hk.SettingsActivity" />
         <activity android:name=".MainActivity">
@@ -54,6 +78,9 @@
             android:name=".hk.HotkeyNavigation"
             android:label="@string/title_activity_hotkey_navigation"
             android:theme="@style/AppTheme" />
+
+        <service android:name=".bor.BloodDonationMessagingService" />
+        <service android:name=".bor.BloodDonationInstanceIdService" />
     </application>
 
 </manifest>

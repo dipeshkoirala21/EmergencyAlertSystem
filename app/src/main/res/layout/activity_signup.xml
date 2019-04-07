@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bor.SignupActivity">
+    tools:context=".vr.SignupActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -95,6 +95,22 @@
                 android:layout_marginLeft="33dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginRight="33dp"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:textColorHint="#A4A4A4" />
+            <EditText
+                android:id="@+id/input_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="33dp"
+                android:layout_marginLeft="33dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginRight="33dp"
+                android:drawableRight="@drawable/ic_location_on_red_24dp"
+                android:hint="Address"
+                android:inputType="phone"
                 android:padding="10dp"
                 android:textColor="#000"
                 android:textColorHint="#A4A4A4" />
