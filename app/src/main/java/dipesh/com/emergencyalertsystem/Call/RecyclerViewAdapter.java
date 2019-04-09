@@ -1,4 +1,4 @@
-package dipesh.com.emergencyalertsystem.emrCall;
+package dipesh.com.emergencyalertsystem.Call;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -15,30 +15,21 @@ import android.widget.Toast;
 import java.util.List;
 
 import dipesh.com.emergencyalertsystem.R;
-import dipesh.com.emergencyalertsystem.emrCall.model.CallLog;
-
-
 
 
 
 /* interface class for adapter click*/
-
-interface AdapterCallback{
-    void itemClicked(Number fm);
-}
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     View view ;
     private Context mContext ;
     private List<Number> mData ;
-    private List<CallLog> category;
     private AdapterCallback adapterCallback;
 
-    RecyclerViewAdapter(Context mContext, List<Number> fmList, List<CallLog> apiData, AdapterCallback adapterCallback) {
+    RecyclerViewAdapter(Context mContext, List<Number> fmList, AdapterCallback adapterCallback) {
         this.mContext = mContext;
         this.mData = fmList;
-        this.category=apiData;
         this.adapterCallback = adapterCallback;
     }
 
@@ -65,10 +56,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
 //                Toast.makeText(v.getContext(), "fms ID = " + mData.get(position).getId(), Toast.LENGTH_SHORT).show();
-//                int fmId = mData.get(position).getId();
+                int fmId = mData.get(position).getId();
                 //call interface method on item click
                 adapterCallback.itemClicked(mData.get(position));
-
 //                playableLink(fmId);
 
 
@@ -94,7 +84,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
 
             radioName = (TextView) itemView.findViewById(R.id.radioTextView) ;
-           // radioImage = (ImageView) itemView.findViewById(R.id.radioImageView);
+          //  radioImage = (ImageView) itemView.findViewById(R.id.radioImageView);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
 
             itemView.setOnClickListener(new View.OnClickListener() {

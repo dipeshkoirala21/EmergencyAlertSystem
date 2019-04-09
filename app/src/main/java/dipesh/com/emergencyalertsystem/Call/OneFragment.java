@@ -1,4 +1,4 @@
-package dipesh.com.emergencyalertsystem.emrCall;
+package dipesh.com.emergencyalertsystem.Call;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dipesh.com.emergencyalertsystem.R;
-import dipesh.com.emergencyalertsystem.emrCall.model.CallLog;
 
 
 public class OneFragment extends Fragment {
@@ -42,7 +41,7 @@ public class OneFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), apiData);
         for(CallLog apiDatum : apiData){
 
-            adapter.addFrag(new NumberListFragment(), apiDatum.getTitle(), apiDatum.getNumbers());
+            adapter.addFrag(new RadioListFragment(), apiDatum.getTitle(), apiDatum.getNumbers());
             viewPager.setAdapter(adapter);
         }
     }
@@ -55,7 +54,7 @@ public class OneFragment extends Fragment {
         apiData = (List<CallLog>) getArguments().getSerializable("apiData");
         tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(),R.color.colorPrimary));
-        tabLayout.setSelectedTabIndicatorHeight((int) (2 * getResources().getDisplayMetrics().density));
+        tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(ContextCompat.getColor(getActivity(),R.color.colorPrimary),
                 ContextCompat.getColor(getActivity(),R.color.colorAccent));
         viewPager = view.findViewById(R.id.viewpager);
@@ -70,7 +69,7 @@ public class OneFragment extends Fragment {
 
 
 //    private void loadFMLIST(){
-//        CallInterface apiInterface=APIClient.getClient().create(CallInterface.class);
+//        RadioInterface apiInterface=APIClient.getClient().create(RadioInterface.class);
 //     Call<List<FMCategory>> call=apiInterface.getFms();
 //    call.enqueue(new Callback<List<FMCategory>>() {
 //        @Override

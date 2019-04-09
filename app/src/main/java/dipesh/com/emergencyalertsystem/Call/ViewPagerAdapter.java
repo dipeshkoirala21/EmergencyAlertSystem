@@ -1,4 +1,4 @@
-package dipesh.com.emergencyalertsystem.emrCall;
+package dipesh.com.emergencyalertsystem.Call;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,13 +9,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import dipesh.com.emergencyalertsystem.emrCall.model.CallLog;
-
-
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
-    private List<Number> numbers = new ArrayList<>();
+    private List<Number> fms = new ArrayList<>();
     List<CallLog> fmCategoryList;
 
 
@@ -31,7 +28,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         Bundle b = new Bundle();
         b.putInt("fragment_position", position);
 
-        b.putSerializable("numbers", (Serializable) fmCategoryList.get(position).getNumbers());
+        b.putSerializable("fms", (Serializable) fmCategoryList.get(position).getNumbers());
         fragment.setArguments(b);
         return fragment;
     }
@@ -44,7 +41,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public void addFrag(Fragment fragment, String title, List<Number> fms) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
-        this.numbers = fms;
+        this.fms = fms;
     }
 
     @Override

@@ -1,10 +1,11 @@
-package dipesh.com.emergencyalertsystem.emrCall;
+package dipesh.com.emergencyalertsystem.Call;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,25 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dipesh.com.emergencyalertsystem.R;
-import dipesh.com.emergencyalertsystem.emrCall.model.CallLog;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NumberListFragment.OnFragmentInteractionListener} interface
+ * {@link RadioListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NumberListFragment#newInstance} factory method to
+ * Use the {@link RadioListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NumberListFragment extends Fragment implements AdapterCallback{
+public class RadioListFragment extends Fragment implements AdapterCallback{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     RecyclerView recyclerView;
     View view;
     List<Number> fmList=new ArrayList<>();
-    List<CallLog> apiData=new ArrayList<>();
-
     List<CallLog>fms;
     int currentPosition;
     RecyclerViewAdapter adapter;
@@ -44,7 +42,7 @@ public class NumberListFragment extends Fragment implements AdapterCallback{
 
     private OnFragmentInteractionListener mListener;
 
-    public NumberListFragment() {
+    public RadioListFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +52,11 @@ public class NumberListFragment extends Fragment implements AdapterCallback{
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NumberListFragment.
+     * @return A new instance of fragment RadioListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NumberListFragment newInstance(String param1, String param2) {
-        NumberListFragment fragment = new NumberListFragment();
+    public static RadioListFragment newInstance(String param1, String param2) {
+        RadioListFragment fragment = new RadioListFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -72,7 +70,6 @@ public class NumberListFragment extends Fragment implements AdapterCallback{
 
     }
 
-    @SuppressLint("ResourceType")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,8 +83,8 @@ public class NumberListFragment extends Fragment implements AdapterCallback{
         recyclerView.setAdapter(adapter);
 //        recyclerView.setAdapter(new RecyclerViewAdapter(new ArrayList<Fm>()));
 //        loadFMLIST();
-        fmList = (List<Number>) getArguments().getSerializable("numbers");
-        adapter = new RecyclerViewAdapter(getActivity(),fmList,apiData,this);
+        fmList = (List<Number>) getArguments().getSerializable("fms");
+        adapter = new RecyclerViewAdapter(getActivity(),fmList,this);
         recyclerView.setAdapter(adapter);
         return view;
 
@@ -103,27 +100,16 @@ public class NumberListFragment extends Fragment implements AdapterCallback{
 
     //override method will auto called on item clicked in adapter call
     @Override
-    public void itemClicked(Number fmRadio) {
+    public void itemClicked(Number fm) {
 
 //        newFragment fragment = new newFragment();
 //        Bundle args = new Bundle();
 //        args.putSerializable("fm", fmRadio);
-//
 //        fragment.setArguments(args);
 //        FragmentManager fm = ((EmergencyCall) getActivity()).getSupportFragmentManager();
 //        FragmentTransaction ft = fm.beginTransaction();
-//        ft.replace(R.id.flFrame, fragment).addToBackStack(null)
+//        ft.replace(R.id.flFrame, fragment).addToBackStack("Tag")
 //                .commit();
-
-//        Fragment newFragment = new OneFragment();
-//        // consider using Java coding conventions (upper first char class names!!!)
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        // Replace whatever is in the fragment_container view with this fragment,
-//        // and add the transaction to the back stack
-//        transaction.replace(R.id.child_fragment, newFragment);
-//        transaction.addToBackStack(null);
-//        // Commit the transaction
-//        transaction.commit();
     }
 
     /**

@@ -1,4 +1,4 @@
-package dipesh.com.emergencyalertsystem.emrCall;
+package dipesh.com.emergencyalertsystem.Call;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,17 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dipesh.com.emergencyalertsystem.R;
-import dipesh.com.emergencyalertsystem.emrCall.model.CallLog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class EmergencyCall extends AppCompatActivity {
+public class EmergencyCall extends AppCompatActivity  {
     List<CallLog> apiData = new ArrayList<>();
-    ProgressBar progressBar;
 //    List<Fm> fmList;
     private Toolbar toolbar;
+    ProgressBar progressBar;
 //    private TabLayout tabLayout;
 //    private ViewPager viewPager;
 //    ProgressDialog progressDialog;
@@ -39,24 +37,16 @@ public class EmergencyCall extends AppCompatActivity {
 //        progressDialog = new ProgressDialog(EmergencyCall.this);
 //        progressDialog.setMessage("Loading....");
 //        progressDialog.show();
-        Toolbar toolbar =  findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-//        loadFMLIST();
         progressBar=findViewById(R.id.progress);
+        toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 //        viewPager =  findViewById(R.id.viewpager);
 //        tabLayout =  findViewById(R.id.tabs);
 //        tabLayout.setupWithViewPager(viewPager);
 //        radioManager = RadioManager.with(this);
-            initViews();
+        initViews();
 
-    }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 
 
@@ -73,17 +63,15 @@ public class EmergencyCall extends AppCompatActivity {
 
 
     private void loadFMLIST() {
-        CallInterface apiInterface = APIClient.getClient().create(CallInterface.class);
-       // Call<List<FMCategory>> call = apiInterface.getFms();
-        Call<List<CallLog>> call = apiInterface.getNumbers();
+        RadioInterface apiInterface = APIClient.getClient().create(RadioInterface.class);
+        Call<List<CallLog>> call = apiInterface.getFms();
         call.enqueue(new Callback<List<CallLog>>() {
             @Override
             public void onResponse(Call<List<CallLog>> call, Response<List<CallLog>> response) {
-
-                apiData = response.body();
-//                setupViewPager(viewPager);
                 Log.d("fsfslfdfkdsf", response.code() + "gj");
+                apiData = response.body();
                 progressBar.setVisibility(View.GONE);
+//                setupViewPager(viewPager);
                 Fragment fragment = new OneFragment();
                 Bundle b = new Bundle();
                 b.putSerializable("apiData", (Serializable) apiData);
@@ -91,53 +79,20 @@ public class EmergencyCall extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.flFrame, fragment)
                         .addToBackStack("list").commit();
 
-//                Log.d("fsfslfdfkdsf", response.code() + "gj");
-//                apiData = response.body();
-////                setupViewPager(viewPager);
-//                Fragment fragment = new OneFragment();
-//                Bundle b = new Bundle();
-//                b.putSerializable("apiData", (Serializable) apiData);
-//                fragment.setArguments(b);
-//                getSupportFragmentManager().beginTransaction().replace(R.id.flFrame, fragment)
-//                        .addToBackStack("list").commit();
+
+
             }
 
             @Override
             public void onFailure(Call<List<CallLog>> call, Throwable t) {
+                Log.d("fsfslfdfkdsf",  "failed");
+                t.printStackTrace();
 
             }
         });
-//        call.enqueue(new Callback<List<FMCategory>>() {
-//            @Override
-//            public void onResponse(Call<List<FMCategory>> call, Response<List<FMCategory>> response) {
-//                Log.d("fsfslfdfkdsf", response.code() + "gj");
-//                apiData = response.body();
-////                setupViewPager(viewPager);
-//                progressBar.setVisibility(View.GONE);
-//                Fragment fragment = new OneFragment();
-//                Bundle b = new Bundle();
-//                b.putSerializable("apiData", (Serializable) apiData);
-//                fragment.setArguments(b);
-//                getSupportFragmentManager().beginTransaction().replace(R.id.flFrame, fragment)
-//                        .addToBackStack("list").commit();
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<FMCategory>> call, Throwable t) {
-//                Log.d("",  "failed");
-//                t.printStackTrace();
-//
-//            }
-//        });
     }
 
-//    @Override
-//    public void onFragmentInteraction(Uri uri) {
-//
-//    }
+
 
 
 
@@ -145,7 +100,7 @@ public class EmergencyCall extends AppCompatActivity {
 
 
      /*   private void loadJSON() {
-        CallInterface apiInterface=APIClient.getClient().create(CallInterface.class);
+        RadioInterface apiInterface=APIClient.getClient().create(RadioInterface.class);
        Call<ResponseBody> call = apiInterface.getAPI();
        call.enqueue(new Callback<ResponseBody>() {
            @Override

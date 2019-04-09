@@ -1,31 +1,35 @@
 
-package dipesh.com.emergencyalertsystem.emrCall.model;
+package dipesh.com.emergencyalertsystem.Call;
 
-import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import dipesh.com.emergencyalertsystem.emrCall.Number;
+public class CallLog {
 
-public class CallLog implements Serializable {
-
-    @SerializedName("id")
-    @Expose
-    private int id;
     @SerializedName("title")
     @Expose
     private String title;
     @SerializedName("numbers")
     @Expose
-    private List<Number> numbers ;
+    private List<Number> numbers;
 
-    public Integer getId() {
-        return id;
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public CallLog() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    /**
+     * 
+     * @param title
+     * @param numbers
+     */
+    public CallLog(String title, List<Number> numbers) {
+        super();
+        this.title = title;
+        this.numbers = numbers;
     }
 
     public String getTitle() {

@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import dipesh.com.emergencyalertsystem.Call.EmergencyCall;
 import dipesh.com.emergencyalertsystem.bor.UserLoginActivity;
-import dipesh.com.emergencyalertsystem.emrCall.EmergencyCall;
 import dipesh.com.emergencyalertsystem.feedback.FeedbackActivity;
 import dipesh.com.emergencyalertsystem.hk.HotkeyNavigation;
 import dipesh.com.emergencyalertsystem.safetytips.SafetyTips;

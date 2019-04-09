@@ -1,4 +1,4 @@
-package dipesh.com.emergencyalertsystem.emrCall;
+package dipesh.com.emergencyalertsystem.Call;
 
 
 import okhttp3.OkHttpClient;
@@ -18,7 +18,7 @@ public class APIClient {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(CallInterface.BASE_URL)
+                .baseUrl(RadioInterface.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

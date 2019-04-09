@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity  {
 //                    if (model.getStatus().equals("1")) {  //login Success
 //
 //                        Toast.makeText(LoginActivity.this, "Login In SuccessFully", Toast.LENGTH_SHORT).show();
-//                        Intent i = new Intent(LoginActivity.this,MainActivity.class);
+//                        Intent i = new Intent(LoginActivity.this,EmergencyCall.class);
 //                        startActivity(i);
 //
 //                    } else if (model.getStatus().equals("0"))  // login failure
