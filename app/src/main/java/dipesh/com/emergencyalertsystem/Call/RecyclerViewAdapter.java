@@ -1,6 +1,8 @@
 package dipesh.com.emergencyalertsystem.Call;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,10 +17,9 @@ import android.widget.Toast;
 import java.util.List;
 
 import dipesh.com.emergencyalertsystem.R;
+import dipesh.com.emergencyalertsystem.safetytips.RecyclerAdapter;
 
 
-
-/* interface class for adapter click*/
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
@@ -38,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.radiocard_view,parent,false);
+        view = mInflater.inflate(R.layout.num_card_view,parent,false);
         return new MyViewHolder(view);
     }
 
@@ -46,20 +47,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        holder.radioName.setText(mData.get(position).getServiceName());
-//        Picasso.with(mContext)
-//                .load(mData.get(position).getImage())
-//                .into(holder.radioImage);
+        holder.name.setText(mData.get(position).getServiceName());
+        holder.contact.setText(mData.get(position).getContact());
+        holder.address.setText(mData.get(position).getAddress());
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-//                Toast.makeText(v.getContext(), "fms ID = " + mData.get(position).getId(), Toast.LENGTH_SHORT).show();
-                int fmId = mData.get(position).getId();
-                //call interface method on item click
-                adapterCallback.itemClicked(mData.get(position));
-//                playableLink(fmId);
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:"+mData.get(position).getContact()));
+                view.getContext().startActivity(callIntent);
 
 
             }
@@ -76,15 +75,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView radioName;
-        ImageView radioImage;
+        TextView name;
+        TextView contact;
+        TextView address;
         CardView cardView ;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            radioName = (TextView) itemView.findViewById(R.id.radioTextView) ;
-          //  radioImage = (ImageView) itemView.findViewById(R.id.radioImageView);
+            name = (TextView) itemView.findViewById(R.id.nameText) ;
+            contact = (TextView) itemView.findViewById(R.id.contactText) ;
+            address = (TextView) itemView.findViewById(R.id.addressText) ;
+
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
 
             itemView.setOnClickListener(new View.OnClickListener() {

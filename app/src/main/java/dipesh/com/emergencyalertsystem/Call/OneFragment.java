@@ -41,7 +41,7 @@ public class OneFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), apiData);
         for(CallLog apiDatum : apiData){
 
-            adapter.addFrag(new RadioListFragment(), apiDatum.getTitle(), apiDatum.getNumbers());
+            adapter.addFrag(new NumberListFragment(), apiDatum.getTitle(), apiDatum.getNumbers());
             viewPager.setAdapter(adapter);
         }
     }
@@ -62,50 +62,5 @@ public class OneFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         return view;
     }
-
-
-
-
-
-
-//    private void loadFMLIST(){
-//        RadioInterface apiInterface=APIClient.getClient().create(RadioInterface.class);
-//     Call<List<FMCategory>> call=apiInterface.getFms();
-//    call.enqueue(new Callback<List<FMCategory>>() {
-//        @Override
-//        public void onResponse(Call<List<FMCategory>> call, Response<List<FMCategory>> response) {
-//            Log.d("TAG", response.code() + "gj");
-//            Log.d("TAG", fmList.size() + "gjgjfkjsgfahsdjkghjdfhg");
-//            fmList=new ArrayList<>();
-//            fmList=response.body();
-//            adapter = new RecyclerViewAdapter(getActivity(),fmList);
-//            recyclerView.setAdapter(adapter);
-//        }
-//
-//        @Override
-//        public void onFailure(Call<List<FMCategory>> call, Throwable t) {
-//
-//        }
-//    });
-
-
-
-//        call.enqueue(new Callback<List<Fm>>() {
-//            @Override
-//            public void onResponse(Call<List<Fm>> call, Response<List<Fm>> response) {
-//                Log.d("TAG", response.code() + "hajkfhkjaskjfakjsdf");
-//                fmList = response.body();
-//                Log.d("TAG", fmList.size()+"  ");
-//                data = new ArrayList<>(Arrays.asList(jsonResponse.getCupon()));
-//                adapter = new RecyclerViewAdapter(getActivity(),fmList);
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Fm>> call, Throwable t) {
-//                Log.d("Error",t.getMessage());
-//            }
-//        });
-//    }
 
 }

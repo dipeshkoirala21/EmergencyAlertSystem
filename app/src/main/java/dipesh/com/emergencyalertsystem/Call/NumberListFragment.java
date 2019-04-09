@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,12 +20,12 @@ import dipesh.com.emergencyalertsystem.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RadioListFragment.OnFragmentInteractionListener} interface
+ * {@link NumberListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RadioListFragment#newInstance} factory method to
+ * Use the {@link NumberListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RadioListFragment extends Fragment implements AdapterCallback{
+public class NumberListFragment extends Fragment implements AdapterCallback{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     RecyclerView recyclerView;
@@ -42,7 +40,7 @@ public class RadioListFragment extends Fragment implements AdapterCallback{
 
     private OnFragmentInteractionListener mListener;
 
-    public RadioListFragment() {
+    public NumberListFragment() {
         // Required empty public constructor
     }
 
@@ -52,11 +50,11 @@ public class RadioListFragment extends Fragment implements AdapterCallback{
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RadioListFragment.
+     * @return A new instance of fragment NumberListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RadioListFragment newInstance(String param1, String param2) {
-        RadioListFragment fragment = new RadioListFragment();
+    public static NumberListFragment newInstance(String param1, String param2) {
+        NumberListFragment fragment = new NumberListFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
